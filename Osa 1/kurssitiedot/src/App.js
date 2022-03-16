@@ -5,8 +5,9 @@ import Total from './components/Total';
 
 
 const App = () => {
-  const course = 'Half Stack application development'
-  const content = [
+  const course = {
+  name:  'Half Stack application development',
+  content: [
     {
       part :'Fundamentals of React',
       exercises: 10,
@@ -20,14 +21,15 @@ const App = () => {
     exercises: 14,
     }
   ]
+  }
 
   
   
   return (
     <div>
       <Header course={course}/>
-      <Content content={content}/>
-      <Total total={content[0].exercises + content[2].exercises + content[1].exercises}/>
+      <Content content={course.content}/>
+      <Total total={course.content}/>
     </div>
   )
 }

@@ -1,9 +1,14 @@
-import React from 'react'
+import React from "react";
 
-const Total = ({total}) => {
+const Total = ({ total }) => {
   return (
-    <div>Total exercises: {total}</div>
-  )
-}
+    <div>
+      Total exercises:
+      {total.reduce((a, b) => {
+        return a + b.exercises;
+      }, 0)}
+    </div>
+  );
+};
 
-export default Total
+export default Total;
