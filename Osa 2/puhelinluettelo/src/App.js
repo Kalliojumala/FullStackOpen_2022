@@ -3,19 +3,22 @@ import { useState, useEffect } from "react";
 import Search from "./components/Search";
 import Form from "./components/Form";
 import PersonList from "./components/PersonList";
+import axios from "axios"
 
 const App = () => {
-  const [persons, setPersons] = useState([
-    { name: "Arto Hellas", phonenumber: "0501234567" },
-    { name: "Joel Kallio ", phonenumber: "0501234567" },
-    { name: "Matti Tatti", phonenumber: "0501234567" },
-    { name: "Teppo Tulppu", phonenumber: "0501234567" },
-  ]);
+   const [persons, setPersons] = useState([]); 
+  useEffect(() => {
+    axios.get('http://localhost:3001/persons').then(notes => {
+      setPersons(notes.data)
+      
+    })
+  }, [])
+
   const [searched, setSearched] = useState([]);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [searchedName, setSearchedName] = useState("");
-
+  
 
   const handleNameChange = (event) => {
     setNewName(event.target.value);
@@ -30,8 +33,9 @@ const App = () => {
     let matches = persons.filter((person) => {
       return person.name.toLowerCase().includes(searchedName.toLowerCase());
     });
-    setSearched(matches)
-  }, [searchedName])
+    console.log("Render!")
+    setSearched(matches);
+  }, [searchedName]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -50,30 +54,29 @@ const App = () => {
       alert(`${newName} is already added!`);
     }
   };
-  
+
   return (
     <div>
       <h2>Phonebook</h2>
       <Search
-     
         handleSearchChange={handleSearchChange}
-        searchedName={searchedName} />
-      
+        searchedName={searchedName}
+      />
+
       <Form
         handleSubmit={handleSubmit}
         handleNameChange={handleNameChange}
         handleNumberChange={handleNumberChange}
         newName={newName}
-        newNumber={newNumber} />
-      
+        newNumber={newNumber}
+      />
+
       <PersonList
         searchedName={searchedName}
         searched={searched}
-        persons={persons}/>
-
+        persons={persons}
+      />
     </div>
-
-
   );
 };
 
