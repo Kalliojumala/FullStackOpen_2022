@@ -9,9 +9,12 @@ const getPersons = (setPersons) => {
   });
 };
 
-const addPerson = (newPerson) => {
+const addPerson = (newPerson, setPersons, resetInputs, displayMessage, resetMessage) => {
   axios.post(url, newPerson).then((response) => {
-    console.log("New person added!");
+    getPersons(setPersons);
+    resetInputs();
+    displayMessage(`Succesfully added ${newPerson.name}.`, "green");
+    resetMessage();
   });
 };
 

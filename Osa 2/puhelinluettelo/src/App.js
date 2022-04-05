@@ -65,11 +65,8 @@ const App = () => {
         
       };
 
-      addPerson(newPerson);
-      getPersons(setPersons);
-      resetInputs();
-      displayMessage(`Succesfully added ${newPerson.name}.`, "green");
-      resetMessage();
+      addPerson(newPerson, setPersons, resetInputs, displayMessage, resetMessage);
+      
     } 
     else {
 
