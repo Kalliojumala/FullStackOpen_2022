@@ -66,7 +66,7 @@ const App = () => {
       }
       let newPerson = {
         name: newName,
-        phonenumber: newNumber,
+        number: newNumber,
         id: newId,
       };
 
@@ -81,7 +81,7 @@ const App = () => {
           `${addedPerson.name} is already added. Do you want to update phonenumber from ${addedPerson.phonenumber} to ${newNumber}?`
         )
       ) {
-        let updatedPerson = { ...addedPerson, phonenumber: newNumber };
+        let updatedPerson = { ...addedPerson, number: newNumber };
         replaceNumber(updatedPerson, newNumber, persons, resetInputs, setPersons, displayMessage, resetMessage);
         
       }

@@ -1,6 +1,7 @@
 import React from "react";
 
 const PersonList = ({ searchedName, searched, persons, handleDelete }) => {
+  
   return (
     <>
       <h2>Numbers</h2>
@@ -9,7 +10,7 @@ const PersonList = ({ searchedName, searched, persons, handleDelete }) => {
         ? searched.map((person) => (
             <div key={person.name} style={{ marginBottom: "10px" }}>
               {" "}
-              {person.name}, {person.phonenumber}
+              {person.name}, {person.number}
               <button
                 style={{ marginLeft: "10px" }}
                 onClick={() => handleDelete(person.id, person.name)}
@@ -21,7 +22,7 @@ const PersonList = ({ searchedName, searched, persons, handleDelete }) => {
         : persons.map((person) => (
             <div key={person.name} style={{ marginBottom: "10px" }}>
               {" "}
-              {person.name}, {person.phonenumber}
+              {person.name}, {person.number}
               <button
                 style={{ marginLeft: "10px" }}
                 onClick={() => handleDelete(person.id, person.name)}
