@@ -16,8 +16,9 @@ const App = () => {
 
   useEffect(() => {
     getPersons(setPersons);
+    
   }, []);
-
+  
   const [searched, setSearched] = useState([]);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
@@ -57,35 +58,34 @@ const App = () => {
     const addedPerson = persons.find(alreadyAdded);
 
     if (addedPerson === undefined) {
-      let newId;
-
-      try {
-        newId = persons[persons.length - 1].id + 1;
-      } catch (e) {
-        newId = 1;
-      }
+      
       let newPerson = {
         name: newName,
         number: newNumber,
-        id: newId,
+        
       };
 
       addPerson(newPerson);
-      setPersons([...persons, newPerson]);
+      getPersons(setPersons);
       resetInputs();
       displayMessage(`Succesfully added ${newPerson.name}.`, "green");
       resetMessage();
-    } else {
+    } 
+    else {
+
       if (
         window.confirm(
-          `${addedPerson.name} is already added. Do you want to update phonenumber from ${addedPerson.phonenumber} to ${newNumber}?`
+          `${addedPerson.name} is already added. Do you want to update number from ${addedPerson.number} to ${newNumber}?`
         )
       ) {
         let updatedPerson = { ...addedPerson, number: newNumber };
+        console.log(updatedPerson)
         replaceNumber(updatedPerson, newNumber, persons, resetInputs, setPersons, displayMessage, resetMessage);
         
       }
+    
     }
+    
   };
 
   const handleDelete = (personId, personName) => {

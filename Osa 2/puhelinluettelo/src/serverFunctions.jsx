@@ -3,6 +3,7 @@ import axios from "axios";
 const url = "api/persons";
 
 const getPersons = (setPersons) => {
+  
   axios.get(url).then((notes) => {
     setPersons(notes.data);
   });
@@ -45,14 +46,9 @@ const replaceNumber = (
   axios
     .put(`${url}/${updatedPerson.id}`, updatedPerson)
     .then((response, err) => {
-      let updatePersons = persons.map((person) => {
-        if (person.id === updatedPerson.id) {
-          person.phonenumber = newNumber;
-        }
-        return person;
-      });
+      
       resetInputs();
-      setPersons(updatePersons);
+      getPersons(setPersons);
       displayMessage(`Succesfully updated ${updatedPerson.name}.`, "green");
       resetMessage();
     })
