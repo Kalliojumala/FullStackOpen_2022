@@ -1,6 +1,10 @@
 import axios from "axios";
 
+//build version only
 const url = "api/persons";
+
+//local json dummy server
+//const url = "persons";
 
 const getPersons = (setPersons) => {
   
@@ -10,10 +14,14 @@ const getPersons = (setPersons) => {
 };
 
 const addPerson = (newPerson, setPersons, resetInputs, displayMessage, resetMessage) => {
-  axios.post(url, newPerson).then((response) => {
+  axios.post(url, newPerson).then((response, error) => {
     getPersons(setPersons);
     resetInputs();
     displayMessage(`Succesfully added ${newPerson.name}.`, "green");
+    resetMessage();
+  }).catch(error => {
+    resetInputs();
+    displayMessage(error.response.data.message, "red");
     resetMessage();
   });
 };
@@ -30,9 +38,9 @@ const deletePerson = (personId, persons,  setPersons, displayMessage, resetMessa
       displayMessage(`Succesfully deleted ${personName}.`, "green");
       resetMessage();
     })
-    .catch((err) => {
+    .catch((error) => {
       
-      displayMessage(`${personName} was already deleted from the server. Refresh to see changes.`, "red");
+      displayMessage(error.response.data.message, "red");
       resetMessage();
     });
 };
@@ -48,16 +56,18 @@ const replaceNumber = (
 ) => {
   axios
     .put(`${url}/${updatedPerson.id}`, updatedPerson)
-    .then((response, err) => {
+    .then((response, error) => {
       
       resetInputs();
       getPersons(setPersons);
       displayMessage(`Succesfully updated ${updatedPerson.name}.`, "green");
       resetMessage();
     })
-    .catch((err) => {
+    .catch((error) => {
+      
       resetInputs();
-      displayMessage(`Failed to update ${updatedPerson.name}. Page reload might be necessary for up-to-date data.`, "red");
+      
+      displayMessage(error.response.data.message, "red");
       resetMessage();
     });
 };
